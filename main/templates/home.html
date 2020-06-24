@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>{{site.title}}|Home</title>
+{% endblock %}
+{% block body %}
+<!-- Feature post -->
+<section class="bg0">
+	<div class="row m-rl-0 justify-content-center">
+		{% for pop in popnews %}
+		<div class="col-md-4 p-rl-1 p-b-2">
+			
+			<div class="bg-img1 size-a-11 how1 pos-relative"
+				style="background-image: url('/media/news/{{pop.img}}' );">
+				<a href="{% url 'fullcatnews' getnews=pop.about %}" class="dis-block how1-child1 trans-03"></a>
+
+				<div class="flex-col-e-s s-full p-rl-25 p-tb-18">
+					<a href="#" class="dis-block how1-child2 f1-s-2 cl0 bo-all-1 bocl0 hov-btn1 trans-03 p-rl-5 p-t-2">
+						{{pop.cat}}
+					</a>
+
+
+					
+					<h3 class="how1-child2 m-t-14 m-b-10">
+						<a href="{% url 'fullcatnews' getnews=pop.about %}" class="f1-l-1 cl0 hov-cl10 trans-03 respon1">
+							{{pop.brief}}
+						</a>
+					</h3>
+				</div>
+			</div>
+			
+
+		</div>
+		{% endfor %}
+		
+
+		
+	</div>
+</section>
+
+<!-- Post -->
+
+<!-- Latest -->
+<section class="bg0 p-t-60 p-b-40">
+	<div class="container">
+		<div class="how2 how2-cl4 flex-s-c">
+			<h3 class="f1-m-2 cl3 tab01-title">
+				Tranding news
+			</h3>
+		</div>
+
+		<div class="row p-t-35">
+			{% for p in post %}
+			<div class="col-sm-6 col-md-4">
+				<!-- Item latest -->
+				<div class="m-b-45">
+					<a href="{% url 'news_details' which_news=p.about %}" class="wrap-pic-w hov1 trans-03">
+						<img src="/media/news/{{p.img}}" width="200px" height="200px" alt="IMG">
+					</a>
+
+					<div class="p-t-16">
+						<h5 class="p-b-5">
+							<a href="{% url 'news_details' which_news=p.about %}" class="f1-m-3 cl2 hov-cl10 trans-03">
+								{{p.title}}
+							</a>
+						</h5>
+						
+						<span class="cl8">
+							<a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
+								{{p.writer}}
+							</a>
+
+							<span class="f1-s-3 m-rl-3">
+							{{p.views}} views
+							</span>
+
+							<span class="f1-s-3">
+								{{p.pub_date}}
+							</span>
+						</span>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+
+		</div>
+
+
+	</div>
+</section>
+<!-- categories -->
+<section class="bg0 p-t-60 p-b-40">
+	<div class="container">
+		{% for c in cat %}
+		<div class="how2 how2-cl4 flex-s-c">
+			<h3 class="f1-m-2 cl3 tab01-title">
+				{{c.cat}}
+			</h3>
+		</div>
+
+		<div class="row p-t-35">
+			{% for n in news %}
+			{% ifequal n.catid c.catid %}
+			<div class="col-sm-6 col-md-4">
+				<!-- Item latest -->
+				<div class="m-b-45">
+					<a href="{% url 'fullcatnews' getnews=n.about %}" class="wrap-pic-w hov1 trans-03">
+						<img src="/media/news/{{n.img}}" width="200px" height="200px" alt="IMG">
+					</a>
+
+					<div class="p-t-16">
+						<h5 class="p-b-5">
+							<a href="{% url 'fullcatnews' getnews=n.about %}" class="f1-m-3 cl2 hov-cl10 trans-03">
+								<b>{{n.title}}</b>
+							</a>
+						</h5>
+						<p style="font-family:'Harmattan', sans-serif ;">
+							<a href="{% url 'fullcatnews' getnews=n.about %}" class="f1-m-3 cl2 hov-cl10 trans-03">
+								{{n.brief}}
+							</a>
+						</p>
+
+						<span class="cl8">
+							<a href="#" class="f1-s-4 cl8 hov-cl10 trans-03">
+								{{n.writer}}
+							</a>
+
+							<span class="f1-s-3 m-rl-3">
+								{{n.views}} views
+							</span>
+
+							<span class="f1-s-3">
+								{{n.pub_date}}
+							</span>
+						</span>
+					</div>
+				</div>
+			</div>
+			{% endifequal %}
+			{% endfor %}
+
+		</div>
+{% endfor %}
+
+	</div>
+</section>
+
+{% endblock %}
